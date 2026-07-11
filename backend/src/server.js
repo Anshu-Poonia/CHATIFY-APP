@@ -20,14 +20,14 @@ app.use(cookieParser()); //req.cookies
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// // mak ready for deployment
-// if (ENV.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// mak ready for deployment
+if (ENV.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-//   app.get("/{*splat}", (_, res) => {
-//     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-//   });
-// }
+  app.get("/{*splat}", (_, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
