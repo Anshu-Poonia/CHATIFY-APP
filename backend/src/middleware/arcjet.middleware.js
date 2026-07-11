@@ -4,6 +4,17 @@ import { isSpoofedBot } from "@arcjet/inspect";
 export const arcjetProtection = async (req, res, next) => {
   try {
     const decision = await aj.protect(req);
+
+        // 👇 Add these logs here
+    console.log("========== ARCJET ==========");
+    console.log("URL:", req.originalUrl);
+    console.log("Method:", req.method);
+    console.log("User-Agent:", req.headers["user-agent"]);
+    console.log("Decision denied:", decision.isDenied());
+    console.log("Reason:", decision.reason);
+    console.log("Results:", decision.results);
+    console.log("============================");
+    
     if (decision.isDenied()) {
       if (decision.reason.isRateLimit()) {
         return res
